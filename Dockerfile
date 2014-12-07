@@ -1,5 +1,5 @@
 # DOCKER-VERSION 0.3.4
-FROM spiritdev/ubuntu
+FROM spiritdev/ubuntu:latest
 MAINTAINER Jean Bordat <bordat.jean@gmail.com>
 
 # Install packages
