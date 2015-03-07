@@ -25,4 +25,4 @@ ENV CI_VERSION AgoraLink-iLinkYou-API - - dev-0.0.0.23 @ Sun Mar  1 13:12:54 CET
 #EXPOSE 80
 
 # Commands we need in order to say BOOM
-ENTRYPOINT [ "/bin/bash", "/tmp/run.sh" ]
+#ENTRYPOINT [ "/bin/bash", "/tmp/run.sh" ]

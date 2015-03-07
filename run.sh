@@ -35,9 +35,9 @@ case "$ENV" in
     echo "=> Production Cache clear"
     php app/console cache:clear --env=prod
     echo "=> Done !"
-    echo "=> Production DB Migration"
+    #echo "=> Production DB Migration"
     #php app/console doctrine:migrations:migrate --env=prod --no-interaction
-    echo "=> Done !"
+    #echo "=> Done !"
     ;;
 
   "Development" | "Staging")
