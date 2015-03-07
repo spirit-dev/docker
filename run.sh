@@ -9,7 +9,7 @@ cd /var/www
 #echo "=> Done !"
 
 echo "=> Rewriting Parameters.yml"
-sed -i -r "s/database_host.*$/database_host: '"$MARIADB_PORT_3306_TCP_ADDR"'/" /var/www/app/config/parameters.yml
+sed -i -r "s/database_host.*$/database_host: '"$PROD_MARIADB_PORT_3306_TCP_ADDR"'/" /var/www/app/config/parameters.yml
 echo "=> Done !"
 
 # Download and run Composer
