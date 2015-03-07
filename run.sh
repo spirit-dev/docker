@@ -13,12 +13,9 @@ sed -i -r "s/database_host.*$/database_host: '"$PROD_MARIADB_PORT_3306_TCP_ADDR"
 echo "=> Done !"
 
 # Download and run Composer
-echo "=> Downloading Composer ..."
+#echo "=> Downloading Composer ..."
 #wget http://getcomposer.org/composer.phar -O composer.phar
-echo "=> Done !"
-echo "=> Installing Symfony vendors"
-php composer.phar install --optimize-autoloader --prefer-dist
-echo "=> Done !"
+#echo "=> Done !"
 
 # Symfony2 actions
 #php app/console assets:install web --symlink
@@ -29,6 +26,9 @@ echo "=> Done !"
 case "$ENV" in
   "Production")
     echo "=> Executing Production stuff"
+    echo "=> Installing Symfony vendors"
+    php composer.phar install --optimize-autoloader --prefer-dist
+    echo "=> Done !"
     echo "=> Production Dumping assets"
     php app/console assetic:dump --env=prod
     echo "=> Done !"
@@ -42,6 +42,9 @@ case "$ENV" in
 
   "Development" | "Staging")
     echo "=> Executing Development stuff"
+    echo "=> Installing Symfony vendors"
+    php composer.phar update
+    echo "=> Done !"
     echo "=> Development Dumping assets"
     php app/console assetic:dump --env=dev
     echo "=> Done !"
