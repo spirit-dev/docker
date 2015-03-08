@@ -46,7 +46,7 @@ case "$ENV" in
   "Development" | "Staging")
     echo "=> Updating apache2 vhost"
     sed -i -r "s/#DirectoryIndex.*$/DirectoryIndex app_dev.php/" /etc/apache2/sites-enabled/000-virtual-host.conf
-    sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app_dev.php [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app_dev.php\/ [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     echo "=> Done !"
     echo "=> Executing Development stuff"
     #echo "=> Installing Symfony vendors"
@@ -77,3 +77,20 @@ chown -R www-data:root /var/www
 
 # Run Apache2
 /usr/sbin/apache2ctl -D FOREGROUND
+
+#cd /var/www
+#sed -i -r "s/database_host.*$/database_host: '"$PROD_MARIADB_PORT_3306_TCP_ADDR"'/" /var/www/app/config/parameters.yml
+#php composer.phar install --optimize-autoloader --prefer-dist
+#php app/console assets:install web
+#php app/console assetic:dump --env=prod
+#php app/console cache:clear --env=prod
+#sed -i -r "s/#DirectoryIndex.*$/DirectoryIndex app_dev.php/" /etc/apache2/sites-enabled/000-virtual-host.conf
+#sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app_dev.php\/ [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
+#php app/console assetic:dump --env=dev
+#php app/console cache:clear --env=dev
+#php app/console doctrine:database:drop --force --no-interaction
+#php app/console doctrine:database:create --env=dev --no-interaction
+#php app/console doctrine:schema:update --force --env=dev --no-interaction
+#php app/console doctrine:fixtures:load --no-interaction
+#chown -R www-data:root /var/www
+#/usr/sbin/apache2ctl -D FOREGROUND

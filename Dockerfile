@@ -8,7 +8,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y php5-imagick php5-gd php5-
 
 # Add our virtual-host.conf
 ADD ./virtual-host.conf /etc/apache2/sites-enabled/000-virtual-host.conf
-RUN a2enmod headers
+RUN a2enmod headers rewrite
 
 # Add our initialisation script
 ADD ./run.sh /tmp/run.sh
@@ -25,4 +25,4 @@ ENV CI_VERSION to_be_defined
 #EXPOSE 80
 
 # Commands we need in order to say BOOM
-#ENTRYPOINT [ "/bin/bash", "/tmp/run.sh" ]
+ENTRYPOINT [ "/bin/bash", "/tmp/run.sh" ]
