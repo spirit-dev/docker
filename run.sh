@@ -31,6 +31,7 @@ case "$ENV" in
     echo "=> Updating apache2 vhost"
     sed -i -r "s/#DirectoryIndex.*$/DirectoryIndex app.php/" /etc/apache2/sites-enabled/000-virtual-host.conf
     sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    #sed -i -r "s/#RewriteRule \^\/\_wdt\/\$.*$/RewriteRule \^\/\_wdt\/\$ \/app.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     echo "=> Done !"
     echo "=> Executing Production stuff"
     #echo "=> Installing Symfony vendors"
@@ -49,26 +50,33 @@ case "$ENV" in
 
   "Development" | "Staging")
     echo "=> Updating apache2 vhost"
-    sed -i -r "s/#DirectoryIndex.*$/DirectoryIndex app_dev.php/" /etc/apache2/sites-enabled/000-virtual-host.conf
-    sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app_dev.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    sed -i -r "s/#DirectoryIndex.*$/DirectoryIndex app.php/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    #sed -i -r "s/#DirectoryIndex.*$/DirectoryIndex app_dev.php/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    #sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app_dev.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    #sed -i -r "s/#RewriteRule \^\/\_wdt\/\$.*$/RewriteRule \^\/\_wdt\/\$ \/app_dev.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     echo "=> Done !"
     echo "=> Executing Development stuff"
     #echo "=> Installing Symfony vendors"
     #php composer.phar update
     #echo "=> Done !"
     echo "=> Development Dumping assets"
-    php app/console assetic:dump --env=dev
+    php app/console assetic:dump --env=prod
+    #php app/console assetic:dump --env=dev
     echo "=> Done !"
     echo "=> Development Cache clear"
-    php app/console cache:clear --env=dev
+    php app/console cache:clear --env=prod
+    #php app/console cache:clear --env=dev
     echo "=> Done !"
     echo "=> Development Deleting DB"
     php app/console doctrine:database:drop --force --no-interaction
     echo "=> Development Creating DB"
-    php app/console doctrine:database:create --env=dev --no-interaction
+    php app/console doctrine:database:create --env=prod --no-interaction
+    #php app/console doctrine:database:create --env=dev --no-interaction
     echo "=> Done !"
     echo "=> Development Update schema"
-    php app/console doctrine:schema:update --force --env=dev --no-interaction
+    php app/console doctrine:schema:update --force --env=prod --no-interaction
+    #php app/console doctrine:schema:update --force --env=dev --no-interaction
     echo "=> Done !"
     echo "=> Development Create fixtures"
     php app/console doctrine:fixtures:load --no-interaction
