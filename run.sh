@@ -44,6 +44,9 @@ case "$ENV" in
     ;;
 
   "Development" | "Staging")
+    echo "=> Updating apache2 vhost"
+    sed -i -ir "s/#DirectoryIndex.*$/DirectoryIndex app_dev.php/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    echo "=> Done !"
     echo "=> Executing Development stuff"
     #echo "=> Installing Symfony vendors"
     #php composer.phar update
