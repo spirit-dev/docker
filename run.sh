@@ -28,6 +28,10 @@ echo "=> Done !"
 
 case "$ENV" in
   "Production")
+    echo "=> Updating apache2 vhost"
+    sed -i -r "s/#DirectoryIndex.*$/DirectoryIndex app.php/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app.php\/ilyapi/\\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    echo "=> Done !"
     echo "=> Executing Production stuff"
     #echo "=> Installing Symfony vendors"
     #php composer.phar install --optimize-autoloader --prefer-dist
@@ -46,7 +50,7 @@ case "$ENV" in
   "Development" | "Staging")
     echo "=> Updating apache2 vhost"
     sed -i -r "s/#DirectoryIndex.*$/DirectoryIndex app_dev.php/" /etc/apache2/sites-enabled/000-virtual-host.conf
-    sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app_dev.php\/ [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app_dev.php\/ilyapi/\\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     echo "=> Done !"
     echo "=> Executing Development stuff"
     #echo "=> Installing Symfony vendors"
