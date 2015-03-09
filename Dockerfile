@@ -19,9 +19,9 @@ ADD ./Symfony2APP /var/www
 
 ENV ENV Development
 #ENV ENV Production
-ENV SYMFONY2_APP_URL_PREFIXER to_be_defined
+ENV SYMFONY2_APP_URL_PREFIXER ilyapi
 
-ENV CI_VERSION to_be_defined
+ENV CI_VERSION test1 @ Mon Mar  9 18:22:35 CET 2015
 
 #EXPOSE 80
 

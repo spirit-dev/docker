@@ -8,6 +8,16 @@ cd /var/www
 #export SYMFONY__DATABASE__HOST=$MARIADB_PORT_3306_TCP_ADDR
 #echo "=> Done !"
 
+echo "=> Prepare Symfony Env"
+cp /var/www/app/config/config_dock.yml /var/www/app/config/config.yml
+cp /var/www/app/config/routing_dev_dock.yml /var/www/app/config/routing_dev.yml
+cp /var/www/app/config/parameters.yml.dock /var/www/app/config/parameters.yml
+echo "=> Done !"
+
+echo "=> Updating Parameters.yml for CI_VERSION"
+sed -i -r "s/ci_version: defined_by_jenkins/ci_version: \"${CI_VERSION}\"/" /var/www/app/config/parameters.yml
+echo "=> Done !"
+
 echo "=> Rewriting Parameters.yml"
 sed -i -r "s/database_host.*$/database_host: '"$PROD_MARIADB_PORT_3306_TCP_ADDR"'/" /var/www/app/config/parameters.yml
 echo "=> Done !"
@@ -33,11 +43,11 @@ case "$ENV" in
     sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     #sed -i -r "s/#RewriteRule \^\/\_wdt\/\$.*$/RewriteRule \^\/\_wdt\/\$ \/app.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     echo "=> Done !"
-    echo "=> Executing Production stuff"
+    #echo "=> Executing Production stuff"
     #echo "=> Installing Symfony vendors"
     #php composer.phar install --optimize-autoloader --prefer-dist
     #echo "=> Done !"
-    echo "=> Production Dumping assets"
+    #echo "=> Production Dumping assets"
     php app/console assetic:dump --env=prod
     echo "=> Done !"
     echo "=> Production Cache clear"
@@ -56,7 +66,7 @@ case "$ENV" in
     sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app_dev.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     #sed -i -r "s/#RewriteRule \^\/\_wdt\/\$.*$/RewriteRule \^\/\_wdt\/\$ \/app_dev.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     echo "=> Done !"
-    echo "=> Executing Development stuff"
+    #echo "=> Executing Development stuff"
     #echo "=> Installing Symfony vendors"
     #php composer.phar update
     #echo "=> Done !"
