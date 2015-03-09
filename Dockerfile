@@ -26,4 +26,4 @@ ENV CI_VERSION to_be_defined
 #EXPOSE 80
 
 # Commands we need in order to say BOOM
-ENTRYPOINT [ "/bin/bash", "/tmp/run.sh" ]
+#ENTRYPOINT [ "/bin/bash", "/tmp/run.sh" ]
