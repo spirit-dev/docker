@@ -17,11 +17,14 @@ RUN chmod 755 /tmp/run.sh
 # Add our symfony application
 ADD ./Symfony2APP /var/www
 
-ENV ENV Development
-#ENV ENV Production
-ENV SYMFONY2_APP_URL_PREFIXER to_be_defined
+#ENV ENV Development
+ENV ENV Production
 
 ENV CI_VERSION to_be_defined
+
+ENV SYMFONY2_APP_URL_PREFIXER to_be_defined
+
+ENV BASE_URL to_be_defined
 
 #EXPOSE 80
 
