@@ -1,23 +1,28 @@
 # DOCKER-VERSION 0.3.4
-FROM    ubuntu:14.04
+FROM    spiritdev/ubuntu
 MAINTAINER Jean Bordat <bordat.jean@gmail.com>
 
+RUN echo "deb mirror://mirrors.ubuntu.com/mirrors.txt utopic main restricted universe multiverse \n\
+deb mirror://mirrors.ubuntu.com/mirrors.txt utopic-updates main restricted universe multiverse \n\
+deb mirror://mirrors.ubuntu.com/mirrors.txt utopic-backports main restricted universe multiverse \n\
+deb mirror://mirrors.ubuntu.com/mirrors.txt utopic-security main restricted universe multiverse" > /etc/apt/sources.list.d/all-mirrors.list
 
-# Update & upgrade system
-RUN DEBIAN_FRONTEND=noninteractive apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget vim git gcc g++ php5-cli python-software-properties
-RUN rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y mongodb pwgen && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+    
+RUN mkdir -p /data/db
+VOLUME /data/db
 
-# Timezone
-RUN echo "Europe/Paris" | sudo tee /etc/timezone
-RUN sudo dpkg-reconfigure --frontend noninteractive tzdata
+ENV AUTH yes
 
-# Download & Add Elasticache Cluster Client
-RUN wget http://elasticache-downloads.s3.amazonaws.com/ClusterClient/PHP-5.5/latest-64bit -O - | tar -C /opt -xz
-RUN cp /opt/AmazonElastiCacheClusterClient*/amazon-elasticache-cluster-client.so /usr/lib/php5/20121212/
-RUN cp /opt/AmazonElastiCacheClusterClient*/memcached.ini /etc/php5/mods-available/
-RUN echo "extension=amazon-elasticache-cluster-client.so" >> /etc/php5/mods-available/amazon-elasticache-cluster-client.ini
+# Add run scripts
+ADD run.sh /run.sh
+ADD set_mongodb_password.sh /set_mongodb_password.sh
+RUN chmod 755 ./*.sh
 
-# Enable Elasticache Cluster Client
-RUN php5enmod amazon-elasticache-cluster-client
-RUN php5enmod memcached
+EXPOSE 27017
+EXPOSE 28017
+
+CMD ["/run.sh"]
