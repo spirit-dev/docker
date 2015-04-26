@@ -1,4 +1,4 @@
-FROM    spiritdev/ubuntu
+FROM ubuntu:trusty
 
 MAINTAINER Jean Bordat <bordat.jean@gmail.com>
 
