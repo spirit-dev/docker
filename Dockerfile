@@ -23,6 +23,7 @@ VOLUME ["/data"]
 COPY server.properties /tmp/server.properties
 WORKDIR /data
 
+RUN chmod 755 /start
 CMD [ "/start" ]
 
 # Special marker ENV used by MCCY management tool
@@ -31,7 +32,8 @@ ENV MC_IMAGE YES
 ENV UID 1000
 ENV MOTD Minecraft Server -_- Powered by Docker and Spirit-Dev.
 ENV JVM_OPTS -Xmx1024M -Xms1024M
-ENV TYPE VANILLA 
-ENV VERSION LATEST 
-ENV LEVEL world 
-ENV PVP true
+ENV TYPE=VANILLA VERSION=LATEST LEVEL=world PVP=true
+#ENV TYPE VANILLA 
+#ENV VERSION LATEST 
+#ENV LEVEL world 
+#ENV PVP true
