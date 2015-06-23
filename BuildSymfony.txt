@@ -22,13 +22,11 @@ docker run -ti -p 44250:80 --name ilinkyou_api --link prod_mariadb:prod_mariadb 
 
 
 # Versioning type : semver.org
-MAJOR
-MINOR
-PATCH
-CI ?
-exemple (0.0.1)-(0.0.1)-(0.0.1)
+	MAJOR-MINOR-PATCH-CI
+	exemple (X.y.z)-(X.y.z)-(X.y.z)-xxx
 
-GUID = MD5(version)
+	AssemblyGUID = MD5(version)
+
 # Ajouts a Prévoir
 	AssemblyProduct : Nom du produit
 	AssemblyTitle : Nom du projet
