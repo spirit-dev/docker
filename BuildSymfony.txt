@@ -19,3 +19,24 @@ docker build -t agoralink/ilinkyou_api .
 docker stop ilinkyou_api && docker rm ilinkyou_api
 #docker run -d -p 44250:80 --name ilinkyou_api --link prod_mariadb:prod_mariadb agoralink/ilinkyou_api /bin/bash
 docker run -ti -p 44250:80 --name ilinkyou_api --link prod_mariadb:prod_mariadb agoralink/ilinkyou_api /bin/bash
+
+
+# Versioning type : semver.org
+MAJOR
+MINOR
+PATCH
+CI ?
+exemple (0.0.1)-(0.0.1)-(0.0.1)
+
+GUID = MD5(version)
+# Ajouts a Prévoir
+	AssemblyProduct : Nom du produit
+	AssemblyTitle : Nom du projet
+	AssemblyDescription : Description du projet
+	AssemblyCulture : Langue cible primaire
+	AssemblyConfiguration : Configuration active
+
+# Ajouts informations production
+	AssemblyCompany : Société productrice
+	AssemblyCopyright : Copyright apposé
+	AssemblyTrademark : Marque apposée
