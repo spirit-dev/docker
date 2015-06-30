@@ -117,7 +117,7 @@ case "$ENV" in
 esac
 
 # Get rid of nasty root permissions
-chown -R www-data:root /var/www
+chown -R www-data:ww-data /var/www
 
 # Run Apache2
 /usr/sbin/apache2ctl -D FOREGROUND
