@@ -25,7 +25,7 @@ docker run -ti -p 44250:80 --name ilinkyou_api --link prod_mariadb:prod_mariadb 
 	MAJOR-MINOR-PATCH-CI
 	exemple (X.y.z)-(X.y.z)-(X.y.z)-xxx
 
-	AssemblyGUID = MD5(version)
+	AssemblyGUID = MD5(MAJOR-MINOR-PATCH-CI)
 
 # Ajouts a Prévoir
 	AssemblyProduct : Nom du produit

@@ -119,4 +119,4 @@ esac
 chown -R www-data:root /var/www
 
 # Run Apache2
-/usr/sbin/apache2ctl -D FOREGROUND
+#/usr/sbin/apache2ctl -D FOREGROUND
