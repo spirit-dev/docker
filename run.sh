@@ -11,6 +11,7 @@ cd /var/www
 echo "=> Prepare Symfony Env"
 #cp /var/www/app/config/config_dock.yml /var/www/app/config/config.yml
 cp /var/www/app/config/routing_dev_dock.yml /var/www/app/config/routing_dev.yml
+cp /var/www/app/config/routing_dock.yml /var/www/app/config/routing.yml
 cp /var/www/app/config/parameters.yml.dock /var/www/app/config/parameters.yml
 echo "=> Done !"
 
