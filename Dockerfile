@@ -22,7 +22,8 @@ ENV ENV Development
 
 ENV CI_VERSION to_be_defined
 
-ENV SYMFONY2_APP_URL_PREFIXER to_be_defined
+# DEPRECATED
+#ENV SYMFONY2_APP_URL_PREFIXER to_be_defined
 
 ENV BASE_URL to_be_defined
 

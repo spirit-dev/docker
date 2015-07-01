@@ -11,7 +11,8 @@ cd /var/www
 echo "=> Prepare Symfony Env"
 #cp /var/www/app/config/config_dock.yml /var/www/app/config/config.yml
 cp /var/www/app/config/routing_dev_dock.yml /var/www/app/config/routing_dev.yml
-cp /var/www/app/config/routing_dock.yml /var/www/app/config/routing.yml
+### DEPRECATED
+#cp /var/www/app/config/routing_dock.yml /var/www/app/config/routing.yml
 cp /var/www/app/config/parameters.yml.dock /var/www/app/config/parameters.yml
 echo "=> Done !"
 
@@ -50,7 +51,8 @@ case "$ENV" in
 
     echo "=> Updating apache2 vhost"
     sed -i -r "s/#DirectoryIndex.*$/DirectoryIndex app.php/" /etc/apache2/sites-enabled/000-virtual-host.conf
-    sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app.php\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    #sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     #sed -i -r "s/#RewriteRule \^\/\_wdt\/\$.*$/RewriteRule \^\/\_wdt\/\$ \/app.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     echo "=> Done !"
 
@@ -78,7 +80,8 @@ case "$ENV" in
     #sed -i -r "s/#DirectoryIndex.*$/DirectoryIndex app.php/" /etc/apache2/sites-enabled/000-virtual-host.conf
     #sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     sed -i -r "s/#DirectoryIndex.*$/DirectoryIndex app_dev.php/" /etc/apache2/sites-enabled/000-virtual-host.conf
-    sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app_dev.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app_dev.php\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    #sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app_dev.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     #sed -i -r "s/#RewriteRule \^\/\_wdt\/\$.*$/RewriteRule \^\/\_wdt\/\$ \/app_dev.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     echo "=> Done !"
 
@@ -117,7 +120,8 @@ case "$ENV" in
 esac
 
 # Get rid of nasty root permissions
-chown -R www-data:ww-data /var/www
+echo "=> Changing rights on /var/www"
+chown -R www-data:www-data /var/www
 
 # Run Apache2
 /usr/sbin/apache2ctl -D FOREGROUND
