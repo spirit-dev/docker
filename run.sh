@@ -52,8 +52,8 @@ case "$ENV" in
     echo "=> Updating apache2 vhost"
     sed -i -r "s/#DirectoryIndex.*$/DirectoryIndex app.php/" /etc/apache2/sites-enabled/000-virtual-host.conf
     sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app.php\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    # Deprecated
     #sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
-    #sed -i -r "s/#RewriteRule \^\/\_wdt\/\$.*$/RewriteRule \^\/\_wdt\/\$ \/app.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     echo "=> Done !"
 
     #echo "=> Installing Symfony vendors"
@@ -77,12 +77,10 @@ case "$ENV" in
     echo "=> Executing Development stuff"
 
     echo "=> Updating apache2 vhost"
-    #sed -i -r "s/#DirectoryIndex.*$/DirectoryIndex app.php/" /etc/apache2/sites-enabled/000-virtual-host.conf
-    #sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     sed -i -r "s/#DirectoryIndex.*$/DirectoryIndex app_dev.php/" /etc/apache2/sites-enabled/000-virtual-host.conf
     sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app_dev.php\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
+    # Deprecated
     #sed -i -r "s/#RewriteRule.*$/RewriteRule \^\(\.\*\)\\$ \/app_dev.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
-    #sed -i -r "s/#RewriteRule \^\/\_wdt\/\$.*$/RewriteRule \^\/\_wdt\/\$ \/app_dev.php\/"$SYMFONY2_APP_URL_PREFIXER"\/\$1 [QSA,L]/" /etc/apache2/sites-enabled/000-virtual-host.conf
     echo "=> Done !"
 
     #echo "=> Installing Symfony vendors"
