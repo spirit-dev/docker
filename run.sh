@@ -97,23 +97,29 @@ case "$ENV" in
     php app/console cache:clear --env=dev
     echo "=> Done !"
 
-    echo "=> Development Deleting DB"
-    php app/console doctrine:database:drop --force --no-interaction
-    echo "=> Done !"
 
-    echo "=> Development Creating DB"
-    #php app/console doctrine:database:create --env=prod --no-interaction
-    php app/console doctrine:database:create --env=dev --no-interaction
-    echo "=> Done !"
+    case "$ENV" in
+      "true")
+        echo "=> Development Deleting DB"
+        php app/console doctrine:database:drop --force --no-interaction
+        echo "=> Done !"
 
-    echo "=> Development Update schema"
-    #php app/console doctrine:schema:update --force --env=prod --no-interaction
-    php app/console doctrine:schema:update --force --env=dev --no-interaction
-    echo "=> Done !"
+        echo "=> Development Creating DB"
+        #php app/console doctrine:database:create --env=prod --no-interaction
+        php app/console doctrine:database:create --env=dev --no-interaction
+        echo "=> Done !"
 
-    echo "=> Development Create fixtures"
-    php app/console doctrine:fixtures:load --no-interaction
-    echo "=> Done !"
+        echo "=> Development Update schema"
+        #php app/console doctrine:schema:update --force --env=prod --no-interaction
+        php app/console doctrine:schema:update --force --env=dev --no-interaction
+        echo "=> Done !"
+
+        echo "=> Development Create fixtures"
+        php app/console doctrine:fixtures:load --no-interaction
+        echo "=> Done !"
+        ;;
+    esac
+
     ;;
 esac
 

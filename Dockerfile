@@ -4,7 +4,7 @@ MAINTAINER Jean Bordat <bordat.jean@gmail.com>
 
 # Install more packages
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y php5-imagick php5-gd php5-intl php5-mcrypt php5-apcu php5-curl php5-mysql
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y php5-imagick php5-gd php5-intl php5-mcrypt php5-apcu php5-curl php5-mysql postfix
 
 # Add our virtual-host.conf
 ADD ./virtual-host.conf /etc/apache2/sites-enabled/000-virtual-host.conf
@@ -19,6 +19,8 @@ ADD ./Symfony2APP /var/www
 
 ENV ENV Development
 #ENV ENV Production
+
+ENV DBLINK false
 
 ENV CI_VERSION to_be_defined
 
