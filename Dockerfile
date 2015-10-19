@@ -32,7 +32,7 @@ ENV ENV			Development
 # DB_LINKED can be true | false
 # default False
 # If true, script will update database structure
-ENV DBLINKED 	false
+ENV DB_LINKED 	false
 
 # CI_VERSION can be everything.
 ENV CI_VERSION to_be_defined
