@@ -1,5 +1,5 @@
 FROM alpine:3.2
-MAINTAINER Christoph Wiechert <wio@psitrax.de>
+MAINTAINER Jean Bordat <bordat.jean@gmail.com>
 
 RUN apk update \
     && apk add --update bash nginx ca-certificates curl \
@@ -35,7 +35,7 @@ ENV ENV			Development
 ENV DB_LINKED 	false
 
 # CI_VERSION can be everything.
-ENV CI_VERSION to_be_defined
+ENV CI_VERSION 	to_be_defined
 
 
 EXPOSE 80
